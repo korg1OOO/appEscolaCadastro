@@ -9,7 +9,7 @@
     $con = Conexao::getCon();
     print_r($con); */
 
-    echo "\n\n----CADASTRO DE CLIENTES----\n";
+    echo "\n\n----SISTEMA ESCOLAR IFPR----\n";
     echo "1- Cadastrar Aluno\n";
     echo "2- Cadastrar Professor\n";
     echo "3- Listar Pessoas\n";
@@ -20,84 +20,87 @@
     $opcao = readline("Informe a opção: ");
     switch($opcao) {
         case 1:
-            $cliente = new ClientePF();
-            $cliente->setNome(readline("Informe o nome: "));
-            $cliente->setNomeSocial(readline("Informe o nome social: "));
-            $cliente->setCpf(readline("Informe o CPF: "));
-            $cliente->setEmail(readline("Informe o e-mail: "));
+            $aluno = new Aluno();
+            $aluno->setNome(readline("Informe o nome: "));
+            $aluno->setEmail(readline("Informe o e-mail: "));
+            $aluno->setIdade(readline("Informe a idade: "));
+            $aluno->setCpf(readline("Informe o CPF: "));
+            $aluno->setCurso(readline("Informe o curso: "));
 
-            $clienteDAO = new ClienteDAO();
-            $clienteDAO->inserirCliente($cliente);
+            $pessoaDAO = new PessoaDAO();
+            $pessoaDAO->inserirPessoa($pessoa);
 
-            echo "Cliente PF cadastrado com sucesso!\n\n";
+            echo "Aluno(a) cadastrado com sucesso!\n\n";
 
             break;
 
         case 2:
-            $cliente = new ClientePJ();
-            $cliente->setRazaoSocial(readline("Informe a razão social: "));
-            $cliente->setNomeSocial(readline("Informe o nome social: "));
-            $cliente->setCnpj(readline("Informe o CNPJ: "));
-            $cliente->setEmail(readline("Informe o e-mail: "));
+            $professor = new Professor();
+            $professor->setNome(readline("Informe o nome: "));
+            $professor->setEmail(readline("Informe o e-mail: "));
+            $professor->setIdade(readline("Informe a idade: "));
+            $professor->setCpf(readline("Informe o CPF: "));
+            $professor->setTitulacao(readline("Informe a titulação: "));
 
-            $clienteDAO = new ClienteDAO();
-            $clienteDAO->inserirCliente($cliente);
+            $pessoaDAO = new PessoaDAO();
+            $pessoaDAO->inserirPessoa($pessoa);
 
-            echo "Cliente PJ cadastrado com sucesso!\n\n";
+            echo "Professor(a) cadastrado com sucesso!\n\n";
 
             break;
 
         case 3:
 
-            $clienteDAO = new ClienteDAO();
-            $clientes = $clienteDAO->listarClientes();
+            $pessoaDAO = new PessoaDAO();
+            $pessoaDAO->listarPessoas($pessoa);
 
-            foreach($clientes as $c) {
-                printf("%d- %s | %s | %s | %s | %s\n", $c->getId(), $c->getTipo(), $c->getNomeSocial(),
-                $c->getIdentificacao(), $c->getNroDoc(), $c->getEmail());
+            foreach($pessoas as $p) {
+                printf("%d- %s | %s | %s | %s | %s\n", $p->getId(), $p->getTipo(), $p->getNome(),
+                $p->getEmail(), $p->getIdade(), $p->getCPF(), $p->getExtra());
             }
 
             break;
     
         case 4:
-            echo "Buscar Cliente pelo ID\n";
-            $id = readline("Informe o ID do cliente: ");
+            $id = readline("Informe o ID da pessoa cadastrada no sistema: ");
 
-            $clienteDAO = new ClienteDAO();
-            $cliente = $clienteDAO->buscarPorId($id);
+            $pessoaDAO = new PessoaDAO();
+            $pessoaDAO = $pessoaDAO->buscarPorId($id);
 
-            if ($cliente !== null) {
-                echo "Cliente encontrado:\n";
+            if ($pessoa !== null) {
+                echo "Usuário encontrado:\n";
                 printf("%d- %s | %s | %s | %s | %s\n", 
-                    $cliente->getId(), 
-                    $cliente->getTipo(), 
-                    $cliente->getNomeSocial(),
-                    ($cliente instanceof ClientePF ? "CPF" : "CNPJ"), 
-                    $cliente->getNroDoc(), 
-                    $cliente->getEmail()
+                    $pessoa->getId(), 
+                    $pessoa->getTipo(), 
+                    $pessoa->getNome(),
+                    ($pessoa instanceof Aluno ? "Curso" : "Titulação"), 
+                    $pessoa->getEmail(),
+                    $pessoa->getIdade(),
+                    $pessoa->getCPF(),
+                    $pessoa->getExtra()
                 );
             } else {
-                echo "Cliente não encontrado!\n";
+                echo "Cadastro do usuário não encontrado no sistema!\n";
             }
             break;
 
         case 5:
             echo "Excluir Cliente pelo ID\n";
 
-            $clienteDAO = new ClienteDAO();
+            $pessoaDAO = new PessoaDAO();
 
-            $clientes = $clienteDAO->listarClientes();
+            $pessoas = $pessoaDAO->listarPessoas();
 
-            foreach($clientes as $c) {
-                printf("%d- %s | %s | %s | %s | %s\n", $c->getId(), $c->getTipo(), $c->getNomeSocial(),
-                $c->getIdentificacao(), $c->getNroDoc(), $c->getEmail());
+            foreach($pessoas as $p) {
+                printf("%d- %s | %s | %s | %s | %s\n", $p->getId(), $p->getTipo(), $p->getNome(),
+                $p->getEmail(), $p->getIdade(), $p->getCPF(), $p->getExtra());
             }
             
-            $id = readline("Informe o ID do cliente: ");
+            $id = readline("Informe o ID do usuário cadastrado: ");
 
-            $clienteDAO->excluirCliente($id);
+            $pessoaDAO->excluirPessoa($id);
 
-            echo "Cliente excluído com sucesso!\n\n";
+            echo "Usuário excluído com sucesso!\n\n";
             break;
         
         case 0:
