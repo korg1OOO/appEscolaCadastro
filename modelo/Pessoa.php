@@ -8,9 +8,8 @@
         protected int $idade;
         protected string $cpf;
 
-        public abstract function getTipo();
-
-        
+        abstract public function getTipo();
+        abstract public function getExtra();
 
         /**
          * Get the value of id
@@ -87,7 +86,7 @@
         /**
          * Get the value of cpf
          */
-        public function getCpf(): int
+        public function getCpf(): string
         {
                 return $this->cpf;
         }
@@ -95,7 +94,7 @@
         /**
          * Set the value of cpf
          */
-        public function setCpf(int $cpf): self
+        public function setCpf(string $cpf): self
         {
                 $this->cpf = $cpf;
 
