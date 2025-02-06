@@ -9,6 +9,11 @@ class Aluno extends Pessoa {
     public function getTipo() {
         return "A";
     }
+    
+    public function getExtra()
+    {
+        return "Curso: " . $this->curso;
+    }
 
     /**
      * Get the value of curso
