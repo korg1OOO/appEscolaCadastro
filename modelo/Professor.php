@@ -10,6 +10,11 @@ class Professor extends Pessoa {
         return "P";
     }
 
+    public function getExtra()
+    {
+        return "Titulação: " . $this->titulacao;
+    }
+
     /**
      * Get the value of titulacao
      */
