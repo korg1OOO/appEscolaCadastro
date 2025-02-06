@@ -18,21 +18,21 @@
 
             $stm = $con->prepare($sql);
             if($pessoa instanceof Aluno) {
-                $stm->execute(array($aluno->getTipo(),
-                                    $aluno->getNome(),
-                                    $aluno->getEmail(),
-                                    $aluno->getIdade(),
-                                    $aluno->getCpf(),
-                                    $aluno->getCurso(),
+                $stm->execute(array($pessoa->getTipo(),
+                                    $pessoa->getNome(),
+                                    $pessoa->getEmail(),
+                                    $pessoa->getIdade(),
+                                    $pessoa->getCpf(),
+                                    $pessoa->getCurso(),
                                     null));
             } else if($pessoa instanceof Professor) {
-                $stm->execute(array($professor->getTipo(),
-                                    $professor->getNome(),
-                                    $professor->getEmail(),
-                                    $professor->getIdade(),
-                                    $professor->getCPF(),
+                $stm->execute(array($pessoa->getTipo(),
+                                    $pessoa->getNome(),
+                                    $pessoa->getEmail(),
+                                    $pessoa->getIdade(),
+                                    $pessoa->getCPF(),
                                     null,
-                                    $professor->getTitulacao()));
+                                    $pessoa->getTitulacao()));
             }
         }
 
